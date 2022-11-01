@@ -1,0 +1,145 @@
+mysql> create database lib2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use lib2;
+Database changed
+mysql> create table publisher(publihser_id int(50) primary key,name varchar(50),address varchar(100));
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> create table latefeerule(fromdays int(100),todays int(100));             Query OK, 0 rows affected (0.28 sec)
+
+mysql> create table language(lang_id int(100) primary key,name varchar(100));
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> create table member(mem_id int(100) primary key,name varchar(100),branchcode int(100)                                                                   ofjoin date,status varchar(100));
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> create table book(book_id int(50) primary key,lang_id int (100) ,mrp int(100),publihser_id int(50),publisheddate date,volume int(50),status varchar(80),foreign key (lang_id) references language(lang_id),foreign key(publihser_id) references publisher(publihser_id));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> create table author(author_id int(50) primary key,name varchar(90),email varchar(80),phoneno int (230),status varchar(40));
+Query OK, 0 rows affected (0.21 sec)
+
+
+mysql> create table issue(issue_id int(50) primary key,dateofissue date,book_id int(50),foreign key(book_id) references book(book_id),mem_id int(100),foreign key(mem_id) references member(mem_id),expecteddateofreturn date);
+Query OK, 0 rows affected (0.34 sec)
+
+
+mysql> create table bookreturn(issue_id int(50),foreign key(issue_id) references issue(issue_id),actualdateofreturn date,latedays int(50),latefee int(50));
+Query OK, 0 rows affected (0.27 sec)
+
+ROR 1215 (HY000): Cannot add foreign key constraint
+mysql> create table bookauthor(book_id int(50),foreign key(book_id) references book(book_id),author_id int(50) ,foreign key(author_id) references author(author_id));
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> show tables
+    -> ;
++----------------+
+| Tables_in_lib2 |
++----------------+
+| author         |
+| book           |
+| bookauthor     |
+| bookreturn     |
+| issue          |
+| language       |
+| latefeerule    |
+| member         |
+| publisher      |
++----------------+
+9 rows in set (0.00 sec)
+
+
+mysql> insert into language(lang_id,name )values ('2','sachin');
+Query OK, 1 row affected (0.04 sec)
+
+
+mysql> insert into publisher(publihser_id,name ,address )values ('4','DC','abc');
+Query OK, 1 row affected (0.04 sec)
+
+
+mysql> insert into author(author_id ,name ,email,phoneno ,status )values('5','yenomi park','fafa','34','active');
+Query OK, 1 row affected (0.03 sec)
+
+
+mysql> insert into  book(book_id ,lang_id  ,mrp ,publihser_id ,publisheddate ,volume,status)values ('5','2','6','4','2022/12/31','4','active');
+Query OK, 1 row affected (0.05 sec)
+
+
+
+
+mysql> select * from book;
++---------+---------+------+--------------+---------------+--------+--------+
+| book_id | lang_id | mrp  | publihser_id | publisheddate | volume | status |
++---------+---------+------+--------------+---------------+--------+--------+
+|       5 |       2 |    6 |            4 | 2022-12-31    |      4 | active |
++---------+---------+------+--------------+---------------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from author;
++-----------+-------------+-------+---------+--------+
+| author_id | name        | email | phoneno | status |
++-----------+-------------+-------+---------+--------+
+|         5 | yenomi park | fafa  |      34 | active |
++-----------+-------------+-------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from publisher;
++--------------+------+---------+
+| publihser_id | name | address |
++--------------+------+---------+
+|            4 | DC   | abc     |
++--------------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from language;
++---------+--------+
+| lang_id | name   |
++---------+--------+
+|       2 | sachin |
++---------+--------+
+1 row in set (0.00 sec)
+
+
+
+mysql> insert into bookauthor(book_id ,author_id)values('5','5');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from bookauthor;mysql> insert into bookauthor(book_id ,author_id)values('5','5');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from bookauthor;
++---------+-----------+
+| book_id | author_id |
++---------+-----------+
+|       5 |         5 |
++---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> insert into bookauthor(book_id ,author_id)values('5','5');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from bookauthor;
++---------+-----------+
+| book_id | author_id |
++---------+-----------+
+|       5 |         5 |
++---------+-----------+
+1 row in set (0.00 sec)
++---------+-----------+
+| book_id | author_id |
++---------+-----------+
+|       5 |         5 |
++---------+-----------+
+1 row in set (0.00 sec)
+
+mysql>
+insert into member(mem_id ,name ,branchcode ,rollnumber,phonenumber,email_id ,dateofjoin,status )values ('6','MARIE','1','31','45','ewew','2022/4/4','schiolar');                                                     Query OK, 1 row affected (0.03 sec)
+mysql> select * from member;
++--------+-------+------------+------------+-------------+----------+------------+----------+
+| mem_id | name  | branchcode | rollnumber | phonenumber | email_id | dateofjoin | status   |
++--------+-------+------------+------------+-------------+----------+------------+----------+
+|      6 | MARIE |          1 |         31 |          45 | ewew     | 2022-04-04 | schiolar |
++--------+-------+------------+------------+-------------+----------+------------+----------+
+1 row in set (0.00 sec)
+
