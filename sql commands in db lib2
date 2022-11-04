@@ -44,7 +44,7 @@ mysql> select * from author;
 +-----------+-----------+-------+---------+--------+
 1 row in set (0.00 sec)
 
-**DELETE TABLE:
+**DELETE COLUMNS IN TABLE:
 mysql> show tables;
 +----------------+
 | Tables_in_libb |
@@ -64,10 +64,28 @@ Query OK, 0 rows affected (0.00 sec)
 
 mysql> select * from latefeerule;
 Empty set (0.00 sec)
-
+**DROP TABLE
 mysql> desc latefreerule;
 ERROR 1146 (42S02): Table 'libb.latefreerule' doesn't exist
 
+** DROP TABLE :
+drop table latefeerule;
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_libb |
++----------------+
+| author         |
+| book           |
+| bookauthor     |
+| bookreturn     |
+| issue          |
+| language       |
+| member         |
+| publisher      |
++----------------+
+8 rows in set (0.00 sec)
 
 
 
