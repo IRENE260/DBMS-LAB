@@ -1,0 +1,86 @@
+**ALTER COMMAND
+alter table author add mainworks varchar(100);
+Query OK, 0 rows affected (0.63 sec)
+select * from author;
++-----------+-----------+-------+---------+--------+-----------+
+| author_id | name      | email | phoneno | status | mainworks |
++-----------+-----------+-------+---------+--------+-----------+
+|         5 | K.R Meera | fafa  |      34 | active | NULL      |
++-----------+-----------+-------+---------+--------+-----------+
+1 row in set (0.00 sec)
+ 
+ **TO INSERT INDICIES INTO TABLE:
+create index indexA on issue(mem_id,book_id);
+Query OK, 0 rows affected (0.38 sec)
+
+**INSERT DATA INTO TBALE:
+insert into language(lang_id,name )values ('2','hindi');
+Query OK, 1 row affected (0.04 sec)
+mysql> select * from language ;
++---------+--------+
+| lang_id | name   |
++---------+--------+
+|       2 | hindi  |
++---------+--------+update author set name='K.R Meera' where author_id=5;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+** TO UPADTE TABLE :
+mysql> select * from author;
++-----------+-------------+-------+---------+--------+
+| author_id | name        | email | phoneno | status |
++-----------+-------------+-------+---------+--------+
+|         5 | yenomi park | fafa  |      34 | active |
++-----------+-------------+-------+---------+--------+
+1 row in set (0.00 sec)
+update author set name='K.R Meera' where author_id=5;
+Query OK, 1 row affected (0.04 sec)
+mysql> select * from author;
++-----------+-----------+-------+---------+--------+
+| author_id | name      | email | phoneno | status |
++-----------+-----------+-------+---------+--------+
+|         5 | K.R Meera | fafa  |      34 | active |
++-----------+-----------+-------+---------+--------+
+1 row in set (0.00 sec)
+
+**DELETE TABLE:
+mysql> show tables;
++----------------+
+| Tables_in_libb |
++----------------+
+| author         |
+| book           |
+| bookauthor     |
+| bookreturn     |
+| issue          |
+| language       |
+| latefeerule    |
+| member         |
+| publisher      |
++----------------+
+delete from latefeerule;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from latefeerule;
+Empty set (0.00 sec)
+
+mysql> desc latefreerule;
+ERROR 1146 (42S02): Table 'libb.latefreerule' doesn't exist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
