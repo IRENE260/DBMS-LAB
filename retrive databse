@@ -1,6 +1,6 @@
-SELECT MEMBERS WITH NAME jithin:
+SELECT MEMBERS WITH NAME martin :
 
-mysql> select * from member where name LIKE'%j%';
+mysql> select * from member where name LIKE'%m%';
 +--------+-------------+-------+---------+------------+
 | mem_id | name        | email | phoneno | status     |
 +--------+-------------+-------+---------+------------+
