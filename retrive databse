@@ -4,27 +4,19 @@ mysql> select * from member where name LIKE'%j%';
 +--------+-------------+-------+---------+------------+
 | mem_id | name        | email | phoneno | status     |
 +--------+-------------+-------+---------+------------+
-|      1 | luke jithin| shja  |      42 | not active |
-|      5 | liam jithin | snjdj |      42 | not active |
+|      1 | luke martin  | shja  |      42 | not active |
+|      5 | liam martin  | snjdj |      42 | not active |
 |      9 | june        | jsajj |      56 | active     |
 |     10 | jake smith  | shja  |      42 | not active |
 +--------+-------------+-------+---------+------------+
 4 rows in set (0.01 sec)
 
-mysql> select * from member where name LIKE'%jithin%';
+mysql> select * from member where name LIKE'%martin%';
 +--------+-------------+-------+---------+------------+
 | mem_id | name        | email | phoneno | status     |
 +--------+-------------+-------+---------+------------+
-|      1 | luke jithin | shja  |      42 | not active |
-|      5 | liam jithin | snjdj |      42 | not active |
+|      1 | luke martin  | shja  |      42 | not active |
+|      5 | liam martin  | snjdj |      42 | not active |
 +--------+-------------+-------+---------+------------+
 2 rows in set (0.00 sec)
 
-mysql> select * from member where name LIKE'%jithin';
-+--------+-------------+-------+---------+------------+
-| mem_id | name        | email | phoneno | status     |
-+--------+-------------+-------+---------+------------+
-|      1 | luke jithin | shja  |      42 | not active |
-|      5 | liam jithin | snjdj |      42 | not active |
-+--------+-------------+-------+---------+------------+
-2 rows in set (0.00 sec)
