@@ -65,8 +65,16 @@ select count(*) from author where author_id=1;
 +----------+
 1 row in set (0.01 sec)
 ------------------------------------------------------------------------------------------------------------------------------------------
-
-
+* To get list of publishers and number of books published by each publisher
+select publisher.name,count(*) from publisher ,book where publisher.publihser_id=book.publihser_id group by( publisher.publihser_id) ;
++------+----------+
+| name | count(*) |
++------+----------+
+| DC   |        2 |
+| cm   |        1 |
++------+----------+
+2 rows in set (0.00 sec)
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
