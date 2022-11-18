@@ -38,6 +38,21 @@ select * from language;
 |         5 | yenomi park  | fafa  |      34 | active |
 |         6 | K.R Meera    | gigi  |      34 | active |
 +-----------+--------------+-------+---------+--------+
+select * from publisher;
++--------------+----------------+---------+
+| publihser_id | name           | address |
++--------------+----------------+---------+
+|            3 | sathyam        | tvla    |
+|            4 | DC             | abc     |
+|            6 | cm             | adc     |
+|            8 | harper collins | fd      |
+|            9 | prathibha      | ktym    |
++--------------+----------------+---------+
+
+
+
+
+
  -----------------------------------------------------------------------------------------------------------------------------------------
  
 * To get the number of books written by a given author:
