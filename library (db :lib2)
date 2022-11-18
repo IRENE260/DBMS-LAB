@@ -50,7 +50,7 @@ mysql> show tables
 9 rows in set (0.00 sec)
 
 
-mysql> insert into language(lang_id,name )values ('2','sachin');
+mysql> insert into language(lang_id,name )values ('2','english');
 Query OK, 1 row affected (0.04 sec)
 
 
@@ -96,7 +96,7 @@ mysql> select * from language;
 +---------+--------+
 | lang_id | name   |
 +---------+--------+
-|       2 | sachin |
+|       2 | english |
 +---------+--------+
 1 row in set (0.00 sec)
 
