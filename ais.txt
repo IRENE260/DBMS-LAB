@@ -1,0 +1,362 @@
+mysql> create database library;
+Query OK, 1 row affected (0.92 sec)
+mysql> drop database library;
+mysql> use library;
+Database changed
+mysql> create table member (member_id int(10) primary key, name varchar(15), branchcode int(10), rollno int(10), email varchar(15), date_of_join Date, status varchar(10));
+mysql> create table publisher(publisher_id int(10) primary key,name varchar(10),address varchar(20));
+mysql> create table language (lang_id int(10) primary key,name varchar(15));
+mysql> create table book (book_id int(10) primary key, title varchar(15), lang_id int(10) , mrp int(10),publisher_id int(10) , published_date Date, volume int(10), status varchar(10),foreign key(lang_id) references language(lang_id),foreign key (publisher_id) references publisher(publisher_id));
+mysql> desc book;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| book_id        | int         | NO   | PRI | NULL    |       |
+| title          | varchar(15) | YES  |     | NULL    |       |
+| lang_id        | int         | YES  | MUL | NULL    |       |
+| mrp            | int         | YES  |     | NULL    |       |
+| publisher_id   | int         | YES  | MUL | NULL    |       |
+| published_date | date        | YES  |     | NULL    |       |
+| volume         | int         | YES  |     | NULL    |       |
+| status         | varchar(10) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+8 rows in set (0.17 sec)
+
+mysql> drop table book;
+Query OK, 0 rows affected (2.11 sec)
+
+
+mysql> select * from member;
++-----------+------+------------+--------+---------------+--------------+-----------+
+| member_id | name | branchcode | rollno | email         | date_of_join | status    |
++-----------+------+------------+--------+---------------+--------------+-----------+
+|         1 | abc  |        123 |     10 | abc@gmail.com | 2008-12-19   | avail     |
+|         2 | cde  |        123 |     11 | cde@gmail.com | 2008-12-10   | avail     |
+|         3 | efg  |        124 |     13 | efg@gmail.com | 2008-5-10    | not avail |
++-----------+------+------------+--------+---------------+--------------+-----------+
+3 rows in set (0.02 sec)
+
+mysql> select * from publisher;
++--------------+------+---------+
+| publisher_id | name | address |
++--------------+------+---------+
+|          111 | ppp  | zyz1    |
+|          112 | qqq  | zyz2    |
+|          113 | rrr  | zyz3    |
++--------------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from language;
++---------+------+
+| lang_id | name |
++---------+------+
+|       1 | mal  |
+|       2 | tam  |
+|       3 | kan  |
+|       4 | tel  |
++---------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table book (book_id int(10) primary key, title varchar(15), lang_id int(10) , mrp int(10),publisher_id int(10) , published_date Date, volume int(10), status varchar(10));
+Query OK, 0 rows affected, 5 warnings (1.18 sec)
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (111,"abc",101,100,100,'2008-02-12',2,"available");
+Query OK, 1 row affected (0.11 sec)
+
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (121,"abc",1,111,100,'2019-02-12',2,"available");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (122,"cde",2,301,112,'2019-07-09',1,"available");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> update book set publisher_id=111 where book_id=121;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (123,"efg",3,412,113,'2020-06-09',1,"notavail");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (124,"ghi",4,102,112,'2020-06-09',1,"notavail");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> delete from book where lang_id=101;
+Query OK, 1 row affected (0.55 sec)
+
+mysql> alter table book add constraint fk_book foreign key (lang_id) references language(lang_id);
+Query OK, 4 rows affected (2.77 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> alter table book add constraint fk_book1 foreign key(publisher_id) references publisher(publisher_id) ;
+Query OK, 4 rows affected (2.93 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> create table author (author_id int(10) primary key, name varchar(15), email varchar(15), phn_no int(10), status varchar(10));
+Query OK, 0 rows affected, 2 warnings (1.59 sec)
+
+
+mysql> desc book;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| book_id        | int         | NO   | PRI | NULL    |       |
+| title          | varchar(15) | YES  |     | NULL    |       |
+| lang_id        | int         | YES  | MUL | NULL    |       |
+| mrp            | int         | YES  |     | NULL    |       |
+| publisher_id   | int         | YES  | MUL | NULL    |       |
+| published_date | date        | YES  |     | NULL    |       |
+| volume         | int         | YES  |     | NULL    |       |
+| status         | varchar(10) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+8 rows in set (0.17 sec)
+
+mysql> drop table book;
+Query OK, 0 rows affected (2.11 sec)
+
+
+mysql> select * from member;
++-----------+------+------------+--------+---------------+--------------+-----------+
+| member_id | name | branchcode | rollno | email         | date_of_join | status    |
++-----------+------+------------+--------+---------------+--------------+-----------+
+|         1 | abc  |        123 |     10 | abc@gmail.com | 2008-12-19   | avail     |
+|         2 | cde  |        123 |     11 | cde@gmail.com | 2008-12-10   | avail     |
+|         3 | efg  |        124 |     13 | efg@gmail.com | 2008-5-10    | not avail |
++-----------+------+------------+--------+---------------+--------------+-----------+
+3 rows in set (0.02 sec)
+
+mysql> select * from publisher;
++--------------+------+---------+
+| publisher_id | name | address |
++--------------+------+---------+
+|          111 | ppp  | zyz1    |
+|          112 | qqq  | zyz2    |
+|          113 | rrr  | zyz3    |
++--------------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from language;
++---------+------+
+| lang_id | name |
++---------+------+
+|       1 | mal  |
+|       2 | tam  |
+|       3 | kan  |
+|       4 | tel  |
++---------+------+
+4 rows in set (0.00 sec)
+
+insert into language (lang_id,name) values (5,"hindi");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> create table book (book_id int(10) primary key, title varchar(15), lang_id int(10) , mrp int(10),publisher_id int(10) , published_date Date, volume int(10), status varchar(10));
+Query OK, 0 rows affected, 5 warnings (1.18 sec)
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (111,"abc",101,100,100,'2008-02-12',2,"available");
+Query OK, 1 row affected (0.11 sec)
+
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (121,"abc",1,111,100,'2019-02-12',2,"available");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (122,"cde",2,301,112,'2019-07-09',1,"available");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> update book set publisher_id=111 where book_id=121;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (123,"efg",3,412,113,'2020-06-09',1,"notavail");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into book (book_id, title, lang_id, mrp,publisher_id, published_date, volume, status) values (124,"ghi",4,102,112,'2020-06-09',1,"notavail");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> delete from book where lang_id=101;
+Query OK, 1 row affected (0.55 sec)
+
+mysql> alter table book add constraint fk_book foreign key (lang_id) references language(lang_id);
+Query OK, 4 rows affected (2.77 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> alter table book add constraint fk_book1 foreign key(publisher_id) references publisher(publisher_id) ;
+Query OK, 4 rows affected (2.93 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> create table author (author_id int(10) primary key, name varchar(15), email varchar(15), phn_no int(10), status varchar(10));
+Query OK, 0 rows affected, 2 warnings (1.59 sec)
+
+
+mysql> insert into author (author_id , name , email , phn_no, status) values (9111,"sam","sam29@gmail.com",123456789,"online");
+Query OK, 1 row affected (0.18 sec)
+
+
+mysql> insert into author (author_id , name , email , phn_no, status) values (9121,"ram","ram67@gmail.com",987654321,"online");
+Query OK, 1 row affected (0.13 sec)
+
+
+mysql> insert into author (author_id , name , email , phn_no, status) values(9122,"syam","Syam5@gmail.com",543216987,"offline");
+Query OK, 1 row affected (0.12 sec)
+
+
+mysql> select * from author;
++-----------+------+-----------------+-----------+---------+
+| author_id | name | email           | phn_no    | status  |
++-----------+------+-----------------+-----------+---------+
+|      9111 | sam  | sam29@gmail.com | 123456789 | online  |
+|      9121 | ram  | ram67@gmail.com | 987654321 | online  |
+|      9122 | syam | Syam5@gmail.com | 543216987 | offline |
++-----------+------+-----------------+-----------+---------+
+3 rows in set (0.05 sec)
+
+mysql> create table book_author(book_id int(10),author_id int(10));
+Query OK, 0 rows affected, 2 warnings (0.65 sec)
+
+mysql> select * from book;
++---------+-------+---------+------+--------------+----------------+--------+-----------+
+| book_id | title | lang_id | mrp  | publisher_id | published_date | volume | status    |
++---------+-------+---------+------+--------------+----------------+--------+-----------+
+|     121 | abc   |       1 |  111 |          111 | 2019-02-12     |      2 | available |
+|     122 | cde   |       2 |  301 |          112 | 2019-07-09     |      1 | available |
+|     123 | efg   |       3 |  412 |          113 | 2020-06-09     |      1 | notavail  |
+|     124 | ghi   |       4 |  102 |          112 | 2020-06-09     |      1 | notavail  |
++---------+-------+---------+------+--------------+----------------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from author;
++-----------+------+-----------------+-----------+---------+
+| author_id | name | email           | phn_no    | status  |
++-----------+------+-----------------+-----------+---------+
+|      9111 | sam  | sam29@gmail.com | 123456789 | online  |
+|      9121 | ram  | ram67@gmail.com | 987654321 | online  |
+|      9122 | syam | Syam5@gmail.com | 543216987 | offline |
++-----------+------+-----------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into book_author (book_id,author_id) values(121,9121),(122,9122),(123,9123),(124,9124);
+Query OK, 4 rows affected (0.14 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+mysql> delete from author where author_id=9111;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into author (author_id , name , email , phn_no, status) values (9113,"sam","sam29@gmail.com",123456789,"online");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> delete from author where author_id=9113;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into author (author_id , name , email , phn_no, status) values (9123,"sam","sam29@gmail.com",123456789,"online");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into author (author_id , name , email , phn_no, status) values (9124,"can","can29@gmail.com",123456122,"offline");
+Query OK, 1 row affected (0.14 sec)
+
+
+mysql> alter table book_author add constraint fk_bookauthor foreign key (book_id) references book(book_i
+d);
+Query OK, 4 rows affected (2.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+mysql> alter table book_author add constraint fk_bookauthor1 foreign key (author_id) references author(author_id);
+Query OK, 4 rows affected (2.40 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> alter table book_author add constraint pk_ba primary key(book_id,author_id);
+Query OK, 0 rows affected (3.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table book_issue(issue_id int(10) primary key, date_of_issue Date,book_id int(10), member_id int(10), expected_date_of_return Date, foreign key (book_id) references book(book_id), foreign key (member_id) references member(member_id));
+Query OK, 0 rows affected, 3 warnings (1.49 sec)
+
+
+mysql> insert into book_issue(issue_id , date_of_issue ,book_id, member_id , expected_date_of_return) values(1,'2001
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into book_issue(issue_id , date_of_issue ,book_id, member_id , expected_date_of_return) values(2,'2001-03-18',122,2,'2002-04-02');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into book_issue(issue_id , date_of_issue ,book_id, member_id , expected_date_of_return) values(3,'2001-03-15',123,2,'2002-03-30');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into book_issue(issue_id , date_of_issue ,book_id, member_id , expected_date_of_return) values(4,'2001-04-15',124,3,'2002-04-30');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from book_issue;
++----------+---------------+---------+-----------+-------------------------+
+| issue_id | date_of_issue | book_id | member_id | expected_date_of_return |
++----------+---------------+---------+-----------+-------------------------+
+|        1 | 2001-02-17    |     121 |         1 | 2002-03-01              |
+|        2 | 2001-03-18    |     122 |         2 | 2002-04-02              |
+|        3 | 2001-03-15    |     123 |         2 | 2002-03-30              |
+|        4 | 2001-04-15    |     124 |         3 | 2002-04-30              |
++----------+---------------+---------+-----------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> create table book_return(issue_id int(10),actual_date_of_return Date,late_days int(10),late_fees int(10),foreign key(issue_id) references book_issue(issue_id));
+Query OK, 0 rows affected, 3 warnings (1.44 sec)
+
+mysql> insert into book_return(issue_id ,actual_date_of_return ,late_days ,late_fees ) values (1,'2002-03-01',3,10),(2,'2002-04-02',24,100),(3,'2002-03-30',15,100),(4,'2002-04-30',35,150);
+Query OK, 4 rows affected (0.14 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> create table late_fee_rule (from_days int(10),to_days int(10),amount int(10),constraint pk_lfr primary key(from_days,to_days,amount));
+Query OK, 0 rows affected, 3 warnings (1.24 sec)
+
+mysql> insert into late_fee_rule (from_days,to_days ,amount) values(0,7,10),(8,30,100);
+Query OK, 2 rows affected (0.13 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+mysql> select *from late_fee_rule;
++-----------+---------+--------+
+| from_days | to_days | amount |
++-----------+---------+--------+
+|         0 |       7 |     10 |
+|         8 |      30 |    100 |
++-----------+---------+--------+
+2 rows in set (0.04 sec)
+
+mysql> CREATE INDEX inbook ON  book_issue(member_id,book_id);
+Query OK, 0 rows affected (1.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from book_issue;
++----------+---------------+---------+-----------+-------------------------+
+| issue_id | date_of_issue | book_id | member_id | expected_date_of_return |
++----------+---------------+---------+-----------+-------------------------+
+|        1 | 2001-02-17    |     121 |         1 | 2002-03-01              |
+|        2 | 2001-03-18    |     122 |         2 | 2002-04-02              |
+|        3 | 2001-03-15    |     123 |         2 | 2002-03-30              |
+|        4 | 2001-04-15    |     124 |         3 | 2002-04-30              |
++----------+---------------+---------+-----------+-------------------------+
+4 rows in set (0.00 sec)
+
+mysql> show index from book_issue;
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table      | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| book_issue |          0 | PRIMARY  |            1 | issue_id    | A         |           4 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| book_issue |          1 | book_id  |            1 | book_id     | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| book_issue |          1 | inbook   |            1 | member_id   | A         |           3 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
+| book_issue |          1 | inbook   |            2 | book_id     | A         |           4 |     NULL |   NULL | YES  | BTREE      |         |               | YES     | NULL       |
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+4 rows in set (0.65 sec)
+
+mysql> GRANT SELECT, INSERT, DELETE, UPDATE ON book update book set mrp=250 where book_id=121;
+Query OK, 1 row affected (0.60 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> load data infile '/home/s5di/MOCK_DATA.csv' into table mock_data fields terminated by ',' enclosed by '"' lines terminated by '\n' ignore 1 rows;
+ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+
+mysql> update book set mrp=250 where book_id=121;
+Query OK, 1 row affected (0.60 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> update book set  book_id=131 where title="abc";
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails 
+mysql> delete from book where lang_id=5;
+Query OK, 0 rows affected (0.00 sec)
+mysql> delete from language where lang_id=5;
+Query OK, 1 row affected (0.20 sec)
