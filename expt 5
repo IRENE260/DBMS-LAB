@@ -38,8 +38,15 @@ select * from language;
 |         5 | yenomi park  | fafa  |      34 | active |
 |         6 | K.R Meera    | gigi  |      34 | active |
 +-----------+--------------+-------+---------+--------+
+* To get the number of books written by a given author:
 
-
+select count(*) from author where author_id=1;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.01 sec)
 
 
 
