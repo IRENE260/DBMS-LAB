@@ -1,3 +1,5 @@
+How to create a procedure:
+
 delimiter //
 create procedure grace()
     -> begin 
