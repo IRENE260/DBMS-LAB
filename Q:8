@@ -1,0 +1,52 @@
+create database transaction;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use transaction;
+Database changed
+
+
+CREATE TABLE Book_Return(Issue_id int,Actual_date_of_return date,late_days int,late_fee int,FOREIGN KEY(Issue_id) REFERENCES Book_Issue(Issue_id));
+Query OK, 0 rows affected (0.27 sec)
+
+CREATE TABLE Book_Return(Issue_id int,Actual_date_of_return date,late_days int,late_fee int,FOREIGN KEY(Issue_id) REFERENCES Book_Issue(Issue_id));
+Query OK, 0 rows affected (0.27 sec)
+insert into Book_Issue Values(1,'2020/7/7',2,'not returned','2020/10/10'),(3,'2020/3/3',4,'returned','2020/4/4');Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+insert into Book_Return values(1,'2020/7/7',35,100),(3,'2020/3/3',0,0);
+Query OK, 2 rows affected (0.04 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+create procedure Book_Return() begin select * from Book_Return; end / 
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create procedure Book_Issue() begin select * from Book_Return; end / 
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter /
+mysql> call Book_Return()/
++----------+-----------------------+-----------+----------+
+| Issue_id | Actual_date_of_return | late_days | late_fee |
++----------+-----------------------+-----------+----------+
+|        1 | 2020-07-07            |        35 |      100 |
+|        3 | 2020-03-03            |         0 |        0 |
+|        1 | 2020-07-07            |        35 |      100 |
+|        3 | 2020-03-03            |         0 |        0 |
++----------+-----------------------+-----------+----------+
+4 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter /
+mysql> call Book_Issue()/
++----------+-----------------------+-----------+----------+
+| Issue_id | Actual_date_of_return | late_days | late_fee |
++----------+-----------------------+-----------+----------+
+|        1 | 2020-07-07            |        35 |      100 |
+|        3 | 2020-03-03            |         0 |        0 |
+|        1 | 2020-07-07            |        35 |      100 |
+|        3 | 2020-03-03            |         0 |        0 |
++----------+-----------------------+-----------+----------+
+4 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
