@@ -1,18 +1,100 @@
-delimiter /
-CREATE procedure book_issue_register (INOUT bir varchar(4000)) begin declare isdone integer default 0; declare sname int(100) default 0; declare bcur cursor for select book_id from book_issue; declare continue handler for not found set isdone=1; open bcur; getlist: loop fetch bcur into sname ; if isdone=1 then leave getlist; end if; set bir = concat(sname,";",bir); end loop getlist; close bcur; end/
-set @bir="";/
-call book_issue_register(@bir);/
-select @bir;/
+--exp11
+delimiter $
+CREATE PROCEDURE book_issue_register() 
+ BEGIN 
+ DECLARE count INTEGER DEFAULT 0; 
+ DECLARE id INT DEFAULT 0; 
+ DECLARE is_d DATE ; 
+ DECLARE b_id INT DEFAULT 0; 
+ DECLARE m_id INT DEFAULT 0; 
+ DECLARE re_d DATE; 
+ DECLARE cur_print CURSOR FOR 
+  SELECT * FROM book_issue;  
+ DECLARE CONTINUE HANDLER FOR NOT FOUND SET count=1; 
+ OPEN cur_print; 
+ label: LOOP 
+  FETCH cur_print INTO id,is_d,b_id,m_id,re_d; 
+  IF count = 1 THEN 
+   LEAVE label; 
+  END IF; 
+  SELECT CONCAT(id,'||',is_d,'||',b_id,'||',m_id,'||',re_d) AS BookIssueReg; 
+  END LOOP label; 
+  CLOSE cur_print; 
+END$
+DELIMITER ;
 
+CALL book_issue_register;
 
 /*
 output
 
-+--------------+
-| @bir         |
-+--------------+
-| 3;3;3;3;3;1; |
-+--------------+
++---------------------------------+
+| BookIssueReg                    |
++---------------------------------+
+| 1||2022-01-23||1||1||2022-05-24 |
++---------------------------------+
 1 row in set (0.00 sec)
 
++----------------------------------+
+| BookIssueReg                     |
++----------------------------------+
+| 2||2018-06-12||3||10||2018-05-13 |
++----------------------------------+
+1 row in set (0.00 sec)
+
++----------------------------------+
+| BookIssueReg                     |
++----------------------------------+
+| 3||2018-06-12||3||15||2018-05-13 |
++----------------------------------+
+1 row in set (0.00 sec)
+
++----------------------------------+
+| BookIssueReg                     |
++----------------------------------+
+| 4||2018-06-12||3||17||2018-05-13 |
++----------------------------------+
+1 row in set (0.00 sec)
+
++----------------------------------+
+| BookIssueReg                     |
++----------------------------------+
+| 5||2018-06-12||3||20||2018-05-13 |
++----------------------------------+
+1 row in set (0.00 sec)
+
++----------------------------------+
+| BookIssueReg                     |
++----------------------------------+
+| 6||2018-06-12||3||25||2018-05-13 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
 */
+
+
+--exp 12
+create table historytable like member;
+alter table historytable drop primary key;
+desc historytable;
+/*
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| member_id    | int(10)     | NO   |     | NULL    |       |
+| name         | varchar(20) | YES  |     | NULL    |       |
+| branch_code  | int(10)     | YES  |     | NULL    |       |
+| roll_no      | int(10)     | YES  |     | NULL    |       |
+| email        | varchar(20) | YES  |     | NULL    |       |
+| date_of_join | date        | YES  |     | NULL    |       |
+| status       | varchar(20) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+*/
+CREATE TRIGGER t_up BEFORE UPDATE  ON member 
+FOR EACH ROW  
+ INSERT INTO historytable VALUES(OLD.Member_id,OLD.Name,OLD.Branch_code,OLD.Roll_no,OLD.Email,OLD.Date_of_join,OLD.Status);
+END $
